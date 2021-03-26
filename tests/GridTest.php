@@ -2,7 +2,6 @@
 
 namespace Exponentiles\Engine\Tests;
 
-use Exponentiles\Engine\EmptyTile;
 use Exponentiles\Engine\Exceptions\GridException;
 use Exponentiles\Engine\Grid;
 use Exponentiles\Engine\Tile;
@@ -31,10 +30,10 @@ class GridTest extends TestCase
 
         $this->assertEquals(
             [
-                [new EmptyTile(0, 0), new EmptyTile(1, 0), new EmptyTile(2, 0), new EmptyTile(3, 0)],
-                [new EmptyTile(0, 1), new EmptyTile(1, 1), new EmptyTile(2, 1), new EmptyTile(3, 1)],
-                [new EmptyTile(0, 2), new EmptyTile(1, 2), new EmptyTile(2, 2), new EmptyTile(3, 2)],
-                [new EmptyTile(0, 3), new EmptyTile(1, 3), new EmptyTile(2, 3), new EmptyTile(3, 3)],
+                [new Tile(0, 0), new Tile(1, 0), new Tile(2, 0), new Tile(3, 0)],
+                [new Tile(0, 1), new Tile(1, 1), new Tile(2, 1), new Tile(3, 1)],
+                [new Tile(0, 2), new Tile(1, 2), new Tile(2, 2), new Tile(3, 2)],
+                [new Tile(0, 3), new Tile(1, 3), new Tile(2, 3), new Tile(3, 3)],
             ],
             $grid->tiles
         );
@@ -50,8 +49,8 @@ class GridTest extends TestCase
 
         $this->assertEquals(
             [
-                [new EmptyTile(0, 0), new EmptyTile(1, 0)],
-                [new EmptyTile(0, 1), new EmptyTile(1, 1)],
+                [new Tile(0, 0), new Tile(1, 0)],
+                [new Tile(0, 1), new Tile(1, 1)],
             ],
             $grid->tiles
         );
@@ -84,7 +83,7 @@ class GridTest extends TestCase
         $grid->addTile(new Tile(0, 1, 2));
 
         $this->assertEquals(
-            new EmptyTile(1, 1),
+            new Tile(1, 1),
             $grid->getAvailableCell()
         );
     }
@@ -98,7 +97,7 @@ class GridTest extends TestCase
         $grid->initialize();
 
         $this->assertEquals(
-            new EmptyTile(1, 1),
+            new Tile(1, 1),
             $grid->getTile(1, 1)
         );
     }
@@ -121,8 +120,8 @@ class GridTest extends TestCase
 
         $this->assertEquals(
             [
-                [$expected,      new EmptyTile(1, 0)],
-                [new EmptyTile(0, 1), new EmptyTile(1, 1)],
+                [$expected,      new Tile(1, 0)],
+                [new Tile(0, 1), new Tile(1, 1)],
             ],
             $grid->tiles
         );

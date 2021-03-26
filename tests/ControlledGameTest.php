@@ -2,7 +2,6 @@
 
 namespace Exponentiles\Engine\Tests;
 
-use Exponentiles\Engine\EmptyTile;
 use Exponentiles\Engine\Game;
 use Exponentiles\Engine\Tile;
 use PHPUnit\Framework\TestCase;
@@ -31,8 +30,8 @@ class ControlledGameTest extends TestCase
         $game->grid->addTile(new Tile(1, 1, 2));
         $this->assertEquals(
             [
-                [new Tile(0, 0, 2), new EmptyTile(1, 0)],
-                [new EmptyTile(0, 1), new Tile(1, 1, 2)],
+                [new Tile(0, 0, 2), new Tile(1, 0)],
+                [new Tile(0, 1),    new Tile(1, 1, 2)],
             ],
             $game->grid->tiles
         );
@@ -42,7 +41,7 @@ class ControlledGameTest extends TestCase
         $this->assertEquals(
             [
                 [new Tile(0, 0, 2), new Tile(1, 0, 2)],
-                [new EmptyTile(0, 1), new EmptyTile(1, 1)],
+                [new Tile(0, 1),    new Tile(1, 1)],
             ],
             $game->grid->tiles
         );

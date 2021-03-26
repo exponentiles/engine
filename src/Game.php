@@ -41,16 +41,13 @@ class Game
     {
         foreach ($this->grid->tiles as $row => $tiles) {
             foreach ($tiles as $column => $tile) {
-                if ($tile instanceof EmptyTile) {
+                if ($tile->isEmpty()) {
                     continue;
                 }
 
                 $above = $this->grid->getTile($tile->x, $tile->y - 1);
 
-                if ($above instanceof EmptyTile) {
-                    $moveTile = clone($tile);
-                    $this->grid->tiles[$above->x][$above->y] = $moveTile;
-                    $this->grid->tiles[$tile->x][$tile->y] = new EmptyTile($tile->x, $tile->y);
+                if ($above->isEmpty()) {
                 }
             }
         }

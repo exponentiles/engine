@@ -15,4 +15,28 @@ class TileTest extends TestCase
         $this->assertSame(0, $tile->y);
         $this->assertSame(512, $tile->value);
     }
+
+    public function test_it_can_be_empty()
+    {
+        $tile = new Tile(1, 2, 0);
+
+        $this->assertTrue(
+            $tile->isEmpty()
+        );
+
+        $tile->value = 1234;
+
+        $this->assertFalse(
+            $tile->isEmpty()
+        );
+    }
+
+    public function test_it_is_empty_by_default()
+    {
+        $tile = new Tile(0, 0);
+
+        $this->assertTrue(
+            $tile->isEmpty()
+        );
+    }
 }

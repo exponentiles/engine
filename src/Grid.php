@@ -23,7 +23,7 @@ class Grid
         for ($y = 0; $y < $this->size; $y++) {
             $this->tiles[$y] = [];
             for ($x = 0; $x < $this->size; $x++) {
-                $this->tiles[$y][] = new EmptyTile($x, $y);
+                $this->tiles[$y][] = new Tile($x, $y);
             }
         }
 
@@ -31,15 +31,13 @@ class Grid
     }
 
     /**
-     * @return EmptyTile[]
+     * @return Tile[]
      */
     public function getAvailableCells(): array
     {
-        $cells = Arr::collapse($this->tiles);
+        $tiles = Arr::collapse($this->tiles);
 
-        return array_filter($cells, function ($tile) {
-            return $tile instanceof EmptyTile;
-        });
+        return array_filter($tiles, [$this, 'isAvailableCell']);
     }
 
     public function getTile(int $x, int $y)
@@ -58,7 +56,7 @@ class Grid
 
     public function isAvailableCell(Tile $tile): bool
     {
-        return $this->tiles[$tile->y][$tile->x] instanceof EmptyTile;
+        return $this->tiles[$tile->y][$tile->x]->isEmpty();
     }
 
     public function getAvailableCell(): Tile
