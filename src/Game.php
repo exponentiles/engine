@@ -3,12 +3,9 @@
 
 namespace Exponentiles\Engine;
 
-use Illuminate\Support\Arr;
-
 class Game
 {
     public Grid $grid;
-
 
     public function __construct(
         public int $size = 4,
