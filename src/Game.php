@@ -24,7 +24,7 @@ class Game
         }
     }
 
-    public function addRandomTile(): void
+    private function addRandomTile(): void
     {
         $cell = $this->grid->getAvailableCell();
         $value = (random_int(0, 100) < 90) ? 2 : 4;

@@ -10,7 +10,7 @@ class Grid
 {
     public int $size;
 
-    /** @var Tile[] */
+    /** @var array<int, array<int, Tile>> */
     public array $tiles = [];
 
     public function __construct(int $size)
