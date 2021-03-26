@@ -12,7 +12,7 @@ class Grid
 
     public array $cells = [];
 
-    public function __construct(int $size = 4)
+    public function __construct(int $size)
     {
         $this->size = $size;
     }
@@ -22,7 +22,7 @@ class Grid
         for ($y = 0; $y < $this->size; $y++) {
             $this->cells[$y] = [];
             for ($x = 0; $x < $this->size; $x++) {
-                $this->cells[$y][] = new Cell($x, $y);
+                $this->cells[$y][] = new EmptyTile($x, $y);
             }
         }
 
@@ -30,12 +30,12 @@ class Grid
     }
 
     /**
-     * @return Cell[]
+     * @return EmptyTile[]
      */
     public function getAvailableCells(): array
     {
-        return array_filter(Arr::flatten($this->cells), function (Cell $cell) {
-            return $cell instanceof Cell;
+        return array_filter(Arr::flatten($this->cells), function (Tile $cell) {
+            return $cell instanceof EmptyTile;
         });
     }
 

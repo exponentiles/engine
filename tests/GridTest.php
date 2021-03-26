@@ -2,7 +2,7 @@
 
 namespace Exponentiles\Engine\Tests;
 
-use Exponentiles\Engine\Cell;
+use Exponentiles\Engine\EmptyTile;
 use Exponentiles\Engine\Grid;
 use Exponentiles\Engine\Tile;
 use PHPUnit\Framework\TestCase;
@@ -18,16 +18,11 @@ class GridTest extends TestCase
         $this->assertSame(4, $grid->size);
     }
 
-    public function test_it_has_default_size()
-    {
-        $grid = new Grid();
-
-        $this->assertSame(4, $grid->size);
-    }
-
     public function test_it_can_initialize_empty_cells()
     {
-        $grid = new Grid();
+        $grid = new Grid(
+            size: 4
+        );
 
         $this->assertEmpty($grid->cells);
 
@@ -35,10 +30,10 @@ class GridTest extends TestCase
 
         $this->assertEquals(
             [
-                [new cell(0, 0), new cell(1, 0), new cell(2, 0), new cell(3, 0)],
-                [new cell(0, 1), new cell(1, 1), new cell(2, 1), new cell(3, 1)],
-                [new cell(0, 2), new cell(1, 2), new cell(2, 2), new cell(3, 2)],
-                [new cell(0, 3), new cell(1, 3), new cell(2, 3), new cell(3, 3)],
+                [new EmptyTile(0, 0), new EmptyTile(1, 0), new EmptyTile(2, 0), new EmptyTile(3, 0)],
+                [new EmptyTile(0, 1), new EmptyTile(1, 1), new EmptyTile(2, 1), new EmptyTile(3, 1)],
+                [new EmptyTile(0, 2), new EmptyTile(1, 2), new EmptyTile(2, 2), new EmptyTile(3, 2)],
+                [new EmptyTile(0, 3), new EmptyTile(1, 3), new EmptyTile(2, 3), new EmptyTile(3, 3)],
             ],
             $grid->cells
         );
@@ -54,8 +49,8 @@ class GridTest extends TestCase
 
         $this->assertEquals(
             [
-                [new Cell(0, 0), new Cell(1, 0)],
-                [new Cell(0, 1), new Cell(1, 1)],
+                [new EmptyTile(0, 0), new EmptyTile(1, 0)],
+                [new EmptyTile(0, 1), new EmptyTile(1, 1)],
             ],
             $grid->cells
         );
@@ -63,7 +58,9 @@ class GridTest extends TestCase
 
     public function test_it_can_return_available_cells()
     {
-        $grid = new Grid;
+        $grid = new Grid(
+            size: 4
+        );
 
         $grid->initialize();
 
@@ -82,7 +79,7 @@ class GridTest extends TestCase
         $grid->initialize();
 
         $this->assertEquals(
-            new Cell(1, 1),
+            new EmptyTile(1, 1),
             $grid->getTile(1, 1)
         );
     }
@@ -105,8 +102,8 @@ class GridTest extends TestCase
 
         $this->assertEquals(
             [
-                [$expected,      new Cell(1, 0)],
-                [new Cell(0, 1), new Cell(1, 1)],
+                [$expected,      new EmptyTile(1, 0)],
+                [new EmptyTile(0, 1), new EmptyTile(1, 1)],
             ],
             $grid->cells
         );

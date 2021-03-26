@@ -4,12 +4,12 @@
 namespace Exponentiles\Engine;
 
 
-class Cell
+class EmptyTile extends Tile
 {
     public function __construct(
         public int $x,
         public int $y
     ) {
-        // The default tile class
+        parent::__construct($x, $y, 0);
     }
 }

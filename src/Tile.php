@@ -1,15 +1,14 @@
 <?php
 
-
 namespace Exponentiles\Engine;
 
-class Tile extends Cell
+class Tile
 {
     public function __construct(
         public int $x,
         public int $y,
         public int $value,
     ) {
-        parent::__construct($x, $y);
+        // A tile with a value.
     }
 }
