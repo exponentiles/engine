@@ -1,7 +1,7 @@
 # The game logic.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/exponentiles/engine.svg?style=flat-square)](https://packagist.org/packages/exponentiles/engine)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/exponentiles/engine/Tests?label=tests)](https://github.com/exponentiles/engine/actions?query=workflow%3ATests+branch%3Amaster)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/exponentiles/engine/Tests?label=tests)](https://github.com/exponentiles/engine/actions?query=workflow%3ATests+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/exponentiles/engine.svg?style=flat-square)](https://packagist.org/packages/exponentiles/engine)
 
 
