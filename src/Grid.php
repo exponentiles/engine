@@ -44,7 +44,7 @@ class Grid
 
     public function getTile(int $x, int $y)
     {
-        return $this->tiles[$y][$x];
+        return $this->tiles[$y][$x] ?? null;
     }
 
     public function addTile(Tile $tile)

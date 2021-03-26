@@ -33,5 +33,26 @@ class Game
         $this->grid->addTile(
             new Tile($cell->x, $cell->y, $value)
         );
+
+        return $this;
+    }
+
+    public function move(string $string)
+    {
+        foreach ($this->grid->tiles as $row => $tiles) {
+            foreach ($tiles as $column => $tile) {
+                if ($tile instanceof EmptyTile) {
+                    continue;
+                }
+
+                $above = $this->grid->getTile($tile->x, $tile->y - 1);
+
+                if ($above instanceof EmptyTile) {
+                    $moveTile = clone($tile);
+                    $this->grid->tiles[$above->x][$above->y] = $moveTile;
+                    $this->grid->tiles[$tile->x][$tile->y] = new EmptyTile($tile->x, $tile->y);
+                }
+            }
+        }
     }
 }
