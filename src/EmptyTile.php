@@ -3,7 +3,6 @@
 
 namespace Exponentiles\Engine;
 
-
 class EmptyTile extends Tile
 {
     public function __construct(

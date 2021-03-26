@@ -2,10 +2,8 @@
 
 namespace Exponentiles\Engine\Tests;
 
-use Exponentiles\Engine\EmptyTile;
 use Exponentiles\Engine\Game;
 use Exponentiles\Engine\Grid;
-use Exponentiles\Engine\Tile;
 use Illuminate\Support\Arr;
 use PHPUnit\Framework\TestCase;
 
