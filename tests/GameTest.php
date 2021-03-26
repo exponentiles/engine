@@ -40,7 +40,7 @@ class GameTest extends TestCase
 
         $this->assertCount(
             ($game->size * $game->size),
-            Arr::flatten($game->grid->cells),
+            Arr::collapse($game->grid->cells),
         );
     }
 

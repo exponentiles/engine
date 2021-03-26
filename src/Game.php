@@ -20,18 +20,19 @@ class Game
     {
         $this->grid->initialize();
 
-        $this->addStartTiles();
-    }
-
-    private function addStartTiles(): void
-    {
-        for ($i = 0; $i < 2; $i++) {
-            $cell = Arr::random($this->grid->getAvailableCells());
-
-            $this->grid->addTile(
-                new Tile($cell->x, $cell->y, 2)
-            );
+        $startTiles = 2;
+        for ($i = 0; $i < $startTiles; $i++) {
+            $this->addRandomTile();
         }
     }
 
+    public function addRandomTile(): void
+    {
+        $cell = $this->grid->getAvailableCell();
+        $value = (random_int(0, 100) < 90) ? 2 : 4;
+
+        $this->grid->addTile(
+            new Tile($cell->x, $cell->y, $value)
+        );
+    }
 }

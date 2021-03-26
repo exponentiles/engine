@@ -3,6 +3,7 @@
 namespace Exponentiles\Engine\Tests;
 
 use Exponentiles\Engine\EmptyTile;
+use Exponentiles\Engine\Exceptions\GridException;
 use Exponentiles\Engine\Grid;
 use Exponentiles\Engine\Tile;
 use PHPUnit\Framework\TestCase;
@@ -56,7 +57,7 @@ class GridTest extends TestCase
         );
     }
 
-    public function test_it_can_return_available_cells()
+    public function test_it_can_get_available_cells()
     {
         $grid = new Grid(
             size: 4
@@ -67,6 +68,24 @@ class GridTest extends TestCase
         $this->assertCount(
             $grid->size * $grid->size,
             $grid->getAvailableCells()
+        );
+    }
+
+    public function test_it_can_get_random_available_cell()
+    {
+        $grid = new Grid(
+            size: 2
+        );
+
+        $grid->initialize();
+
+        $grid->addTile(new Tile(0, 0, 2));
+        $grid->addTile(new Tile(1, 0, 2));
+        $grid->addTile(new Tile(0, 1, 2));
+
+        $this->assertEquals(
+            new EmptyTile(1, 1),
+            $grid->getAvailableCell()
         );
     }
 
@@ -107,5 +126,26 @@ class GridTest extends TestCase
             ],
             $grid->cells
         );
+    }
+
+    public function test_it_throws_exception_if_tile_is_not_empty()
+    {
+        $grid = new Grid(
+            size: 2
+        );
+
+        $grid->initialize();
+
+        $grid->addTile($expected = new Tile(
+            x: 0,
+            y: 0,
+            value: 2,
+        ));
+
+        $this->expectExceptionObject(
+            new GridException('Tile at position not empty.')
+        );
+
+        $grid->addTile($expected);
     }
 }

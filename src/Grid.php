@@ -3,7 +3,7 @@
 
 namespace Exponentiles\Engine;
 
-
+use Exponentiles\Engine\Exceptions\GridException;
 use Illuminate\Support\Arr;
 
 class Grid
@@ -34,18 +34,31 @@ class Grid
      */
     public function getAvailableCells(): array
     {
-        return array_filter(Arr::flatten($this->cells), function (Tile $cell) {
-            return $cell instanceof EmptyTile;
+        $cells = Arr::collapse($this->cells);
+
+        return array_filter($cells, function ($tile) {
+            return $tile instanceof EmptyTile;
         });
     }
 
     public function getTile(int $x, int $y)
     {
-        return $this->cells[$x][$y];
+        return $this->cells[$y][$x];
     }
 
     public function addTile(Tile $tile)
     {
-        $this->cells[$tile->x][$tile->y] = $tile;
+        if (! $this->cells[$tile->y][$tile->x] instanceof EmptyTile) {
+            throw new GridException('Tile at position not empty.');
+        }
+
+        $this->cells[$tile->y][$tile->x] = $tile;
+    }
+
+    public function getAvailableCell(): Tile
+    {
+        return Arr::random(
+            $this->getAvailableCells()
+        );
     }
 }
