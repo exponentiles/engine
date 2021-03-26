@@ -25,7 +25,7 @@ class GridTest extends TestCase
             size: 4
         );
 
-        $this->assertEmpty($grid->cells);
+        $this->assertEmpty($grid->tiles);
 
         $grid->initialize();
 
@@ -36,7 +36,7 @@ class GridTest extends TestCase
                 [new EmptyTile(0, 2), new EmptyTile(1, 2), new EmptyTile(2, 2), new EmptyTile(3, 2)],
                 [new EmptyTile(0, 3), new EmptyTile(1, 3), new EmptyTile(2, 3), new EmptyTile(3, 3)],
             ],
-            $grid->cells
+            $grid->tiles
         );
     }
 
@@ -53,7 +53,7 @@ class GridTest extends TestCase
                 [new EmptyTile(0, 0), new EmptyTile(1, 0)],
                 [new EmptyTile(0, 1), new EmptyTile(1, 1)],
             ],
-            $grid->cells
+            $grid->tiles
         );
     }
 
@@ -124,7 +124,7 @@ class GridTest extends TestCase
                 [$expected,      new EmptyTile(1, 0)],
                 [new EmptyTile(0, 1), new EmptyTile(1, 1)],
             ],
-            $grid->cells
+            $grid->tiles
         );
     }
 

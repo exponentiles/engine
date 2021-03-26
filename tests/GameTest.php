@@ -34,13 +34,13 @@ class GameTest extends TestCase
     {
         $game = new Game();
 
-        $this->assertEmpty($game->grid->cells);
+        $this->assertEmpty($game->grid->tiles);
 
         $game->start();
 
         $this->assertCount(
             ($game->size * $game->size),
-            Arr::collapse($game->grid->cells),
+            Arr::collapse($game->grid->tiles),
         );
     }
 

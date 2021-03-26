@@ -10,7 +10,8 @@ class Grid
 {
     public int $size;
 
-    public array $cells = [];
+    /** @var Tile[] */
+    public array $tiles = [];
 
     public function __construct(int $size)
     {
@@ -20,9 +21,9 @@ class Grid
     public function initialize(): self
     {
         for ($y = 0; $y < $this->size; $y++) {
-            $this->cells[$y] = [];
+            $this->tiles[$y] = [];
             for ($x = 0; $x < $this->size; $x++) {
-                $this->cells[$y][] = new EmptyTile($x, $y);
+                $this->tiles[$y][] = new EmptyTile($x, $y);
             }
         }
 
@@ -34,7 +35,7 @@ class Grid
      */
     public function getAvailableCells(): array
     {
-        $cells = Arr::collapse($this->cells);
+        $cells = Arr::collapse($this->tiles);
 
         return array_filter($cells, function ($tile) {
             return $tile instanceof EmptyTile;
@@ -43,16 +44,21 @@ class Grid
 
     public function getTile(int $x, int $y)
     {
-        return $this->cells[$y][$x];
+        return $this->tiles[$y][$x];
     }
 
     public function addTile(Tile $tile)
     {
-        if (! $this->cells[$tile->y][$tile->x] instanceof EmptyTile) {
+        if (! $this->isAvailableCell($tile)) {
             throw new GridException('Tile at position not empty.');
         }
 
-        $this->cells[$tile->y][$tile->x] = $tile;
+        $this->tiles[$tile->y][$tile->x] = $tile;
+    }
+
+    public function isAvailableCell(Tile $tile): bool
+    {
+        return $this->tiles[$tile->y][$tile->x] instanceof EmptyTile;
     }
 
     public function getAvailableCell(): Tile
