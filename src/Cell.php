@@ -3,11 +3,13 @@
 
 namespace Exponentiles\Engine;
 
-class Game
+
+class Cell
 {
     public function __construct(
-        public int $size = 4,
+        public int $x,
+        public int $y
     ) {
-        // The grid manager
+        // The default tile class
     }
 }

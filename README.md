@@ -26,8 +26,11 @@ composer require exponentiles/engine
 ## Usage
 
 ```php
-$skeleton = new Exponentiles\Engine();
-echo $skeleton->echoPhrase('Hello, Exponentiles!');
+$game = new Exponentiles\Game();
+
+$game->start();
+
+
 ```
 
 ## Testing
