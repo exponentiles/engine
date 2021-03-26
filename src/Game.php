@@ -13,7 +13,7 @@ class Game
         $this->grid = new Grid($this->size);
     }
 
-    public function start()
+    public function start(): self
     {
         $this->grid->initialize();
 
@@ -21,9 +21,11 @@ class Game
         for ($i = 0; $i < $startTiles; $i++) {
             $this->addRandomTile();
         }
+
+        return $this;
     }
 
-    private function addRandomTile(): void
+    private function addRandomTile(): self
     {
         $cell = $this->grid->getAvailableCell();
         $value = (random_int(0, 100) < 90) ? 2 : 4;
