@@ -28,20 +28,6 @@ class GameTest extends TestCase
         $this->assertSame(2, $game->grid->size);
     }
 
-    public function test_starting_will_initialize_grid()
-    {
-        $game = new Game();
-
-        $this->assertEmpty($game->grid->tiles);
-
-        $game->start();
-
-        $this->assertCount(
-            ($game->size * $game->size),
-            Arr::collapse($game->grid->tiles),
-        );
-    }
-
     public function test_starting_will_add_two_random_tiles()
     {
         $game = new Game(
