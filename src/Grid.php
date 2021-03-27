@@ -3,7 +3,6 @@
 
 namespace Exponentiles\Engine;
 
-use Exponentiles\Engine\Exceptions\GridException;
 use Illuminate\Support\Arr;
 
 class Grid

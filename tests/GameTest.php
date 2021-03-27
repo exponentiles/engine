@@ -4,7 +4,6 @@ namespace Exponentiles\Engine\Tests;
 
 use Exponentiles\Engine\Game;
 use Exponentiles\Engine\Grid;
-use Illuminate\Support\Arr;
 use PHPUnit\Framework\TestCase;
 
 class GameTest extends TestCase
