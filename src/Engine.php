@@ -7,6 +7,11 @@ use Illuminate\Support\Arr;
 
 class Engine
 {
+    public const DIRECTION_NORTH = 'NORTH';
+    public const DIRECTION_SOUTH = 'SOUTH';
+    public const DIRECTION_EAST = 'EAST';
+    public const DIRECTION_WEST = 'WEST';
+
     public Grid $grid;
 
     public function __construct(
@@ -35,7 +40,16 @@ class Engine
 
     public function steer(string $direction): self
     {
-        if ($direction === 'EAST' || $direction === 'WEST') {
+        $shouldRotate = in_array($direction, [
+            self::DIRECTION_EAST,
+            self::DIRECTION_WEST,
+        ]);
+        $shouldFlip = in_array($direction, [
+            self::DIRECTION_NORTH,
+            self::DIRECTION_WEST,
+        ]);
+
+        if ($shouldRotate) {
             $this->grid->tiles = Operator::rotate($this->grid->tiles);
         }
 
@@ -44,14 +58,14 @@ class Engine
             // an ordered integer array.
             $values = Arr::pluck($column, 'value');
 
-            if ($direction === 'NORTH' || $direction === 'WEST') {
+            if ($shouldFlip) {
                 $values = array_reverse($values);
             }
 
             // Operate on the plucked values.
             $values = Operator::move($values);
 
-            if ($direction === 'NORTH' || $direction === 'WEST') {
+            if ($shouldFlip) {
                 $values = array_reverse($values);
             }
 
@@ -61,7 +75,7 @@ class Engine
             }
         }
 
-        if ($direction === 'EAST' || $direction === 'WEST') {
+        if ($shouldRotate) {
             $this->grid->tiles = Operator::rotate($this->grid->tiles);
         }
 

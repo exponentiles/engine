@@ -21,7 +21,7 @@ class EngineOperationsTest extends TestCase
             ]
         );
 
-        $engine->steer('SOUTH');
+        $engine->steer(Engine::DIRECTION_SOUTH);
 
         $this->assertEquals(
             [
@@ -48,7 +48,7 @@ class EngineOperationsTest extends TestCase
             ]
         );
 
-        $engine->steer('NORTH');
+        $engine->steer(Engine::DIRECTION_NORTH);
 
         $this->assertEquals(
             [
@@ -74,7 +74,7 @@ class EngineOperationsTest extends TestCase
             ],
         );
 
-        $engine->steer('EAST');
+        $engine->steer(Engine::DIRECTION_EAST);
 
         $this->assertEquals(
             [
@@ -100,7 +100,7 @@ class EngineOperationsTest extends TestCase
             ],
         );
 
-        $engine->steer('WEST');
+        $engine->steer(Engine::DIRECTION_WEST);
 
         $this->assertEquals(
             [
