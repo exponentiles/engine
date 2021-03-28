@@ -3,9 +3,6 @@
 
 namespace Exponentiles\Engine;
 
-
-use Illuminate\Support\Arr;
-
 class Operator
 {
     /**
