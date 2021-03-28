@@ -30,7 +30,7 @@ class Engine
 
     public function steer(Grid $grid, string $direction)
     {
-        if ($direction === 'EAST') {
+        if ($direction === 'EAST' || $direction === 'WEST') {
             $grid->tiles = Operator::rotate($grid->tiles);
         }
 
@@ -39,14 +39,14 @@ class Engine
             // an ordered integer array.
             $values = Arr::pluck($column, 'value');
 
-            if ($direction === 'NORTH') {
+            if ($direction === 'NORTH' || $direction === 'WEST') {
                 $values = array_reverse($values);
             }
 
             // Operate on the plucked values.
             $values = Operator::move($values);
 
-            if ($direction === 'NORTH') {
+            if ($direction === 'NORTH' || $direction === 'WEST') {
                 $values = array_reverse($values);
             }
 
@@ -56,7 +56,7 @@ class Engine
             }
         }
 
-        if ($direction === 'EAST') {
+        if ($direction === 'EAST' || $direction === 'WEST') {
             $grid->tiles = Operator::rotate($grid->tiles);
         }
     }
