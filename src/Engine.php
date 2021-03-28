@@ -28,65 +28,28 @@ class Engine
         return $this;
     }
 
-    /**
-     * @param array<int, Tile> $tiles
-     * @return array<int, Tile>
-     */
-    public function slideColumn(array $tiles): array
+    public function steer(Grid $grid, string $direction)
     {
-        // pluck only values.
-        return collect($tiles)->pluck('value')
-            // Filter away empty tiles.
-            ->filter()
-            // Pad with missing zeros.
-            ->pad(-count($tiles), 0)
-            // Update column values.
-            ->map(function ($value, $index) use ($tiles) {
-                // TODO: Implement "setValue(): self" on Tile.
-                $tiles[$index]->value = $value;
+        foreach ($grid->tiles as $column) {
+            // Pluck tile values to form,
+            // an ordered integer array.
+            $values = Arr::pluck($column, 'value');
 
-                return $tiles[$index];
-            })->toArray();
-    }
-
-    /**
-     * @param array<int, Tile> $tiles
-     * @return array<int, Tile>
-     */
-    public function combineColumn(array $tiles): array
-    {
-        $values = Arr::pluck($tiles, 'value');
-
-        // Loop backwards through tile values.
-        for ($i = count($values) - 1; $i >= 1; $i--) {
-            $current = $values[$i];
-            $previous = $values[$i - 1] ?? null;
-
-            if ($current !== $previous) {
-                continue;
+            if ($direction === 'NORTH') {
+                $values = array_reverse($values);
             }
 
-            // Combine onto current value.
-            $values[$i] = $current + $previous;
+            // Operate on the plucked values.
+            $values = Operator::move($values);
 
-            // Empty previous value.
-            $values[$i - 1] = 0;
-        }
+            if ($direction === 'NORTH') {
+                $values = array_reverse($values);
+            }
 
-        return collect($values)
-            ->map(function ($value, $index) use ($tiles) {
-                $tiles[$index]->value = $value;
-
-                return $tiles[$index];
-            })->toArray();
-    }
-
-    public function slide(Grid $grid, string $direction)
-    {
-        foreach ($grid->tiles as $index => $column) {
-            $grid->tiles[$index] = $this->slideColumn($column);
-            $grid->tiles[$index] = $this->combineColumn($column);
-            $grid->tiles[$index] = $this->slideColumn($column);
+            // Map moved values to column tiles.
+            foreach ($column as $index => $tile) {
+                $tile->value = $values[$index];
+            }
         }
     }
 }
