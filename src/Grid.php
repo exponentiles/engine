@@ -21,7 +21,7 @@ class Grid
 
     public function getTile(int $x, int $y): Tile
     {
-        return $this->tiles[$y][$x];
+        return $this->tiles[$x][$y];
     }
 
     /** @return array<int, Tile> */
