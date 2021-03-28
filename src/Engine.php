@@ -3,6 +3,8 @@
 
 namespace Exponentiles\Engine;
 
+use Illuminate\Support\Arr;
+
 class Engine
 {
     public function start(Grid $grid)
@@ -26,14 +28,26 @@ class Engine
         return $this;
     }
 
-    public function slide(Grid $grid, string $direction)
+    /**
+     * @param array<int, Tile> $tiles
+     * @return array<int, Tile>
+     */
+    public function slideColumn(array $tiles): array
     {
-        ray()->clearScreen();
-        foreach ($grid->tiles as $index => $column) {
-            // Pluck only values
-            $values = collect(data_get($column, '*.value'));
+        // pluck only values.
+        return collect($tiles)->pluck('value')
+            // Filter away empty tiles.
+            ->filter()
+            // Pad with missing zeros.
+            ->pad(-count($tiles), 0)
+            // Update column values.
+            ->map(function ($value, $index) use ($tiles) {
+                // TODO: Implement "setValue(): self" on Tile.
+                $tiles[$index]->value = $value;
 
-            ray($values)->red();
+                return $tiles[$index];
+            })->toArray();
+    }
 
             // Filter away empty tiles
             $values = $values->filter();
