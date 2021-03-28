@@ -29,7 +29,7 @@ class Operator
         // Loop backwards through tile values.
         for ($i = count($values) - 1; $i >= 1; $i--) {
             $current = $values[$i];
-            $previous = $values[$i - 1] ?? null;
+            $previous = $values[$i - 1];
 
             if ($current !== $previous) {
                 continue;
