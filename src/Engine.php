@@ -25,4 +25,32 @@ class Engine
 
         return $this;
     }
+
+    public function slide(Grid $grid, string $direction)
+    {
+        ray()->clearScreen();
+        foreach ($grid->tiles as $index => $column) {
+            // Pluck only values
+            $values = collect(data_get($column, '*.value'));
+
+            ray($values)->red();
+
+            // Filter away empty tiles
+            $values = $values->filter();
+
+            // Pad with missing zeros
+            $values = $values->pad(-$grid->size, 0);
+
+            ray($values)->blue();
+
+            // Update column values
+            $values->each(function ($value, $key) use ($column) {
+                $column[$key]->value = $value;
+            });
+
+            $grid->tiles[$index] = $column;
+            ray($values->toArray())->green();
+            ray($column)->purple();
+        }
+    }
 }
