@@ -25,18 +25,16 @@ class Engine
         }
     }
 
-    public function addTileTo(): self
+    public function addTileTo(): void
     {
         $cell = $this->grid->getAvailableCell();
         $value = (random_int(0, 100) < 90) ? 2 : 4;
 
         // Can I just operate directly on the cell???
         $this->grid->getTile($cell->x, $cell->y)->value = $value;
-
-        return $this;
     }
 
-    public function steer(string $direction): void
+    public function steer(string $direction): self
     {
         if ($direction === 'EAST' || $direction === 'WEST') {
             $this->grid->tiles = Operator::rotate($this->grid->tiles);
@@ -67,5 +65,7 @@ class Engine
         if ($direction === 'EAST' || $direction === 'WEST') {
             $this->grid->tiles = Operator::rotate($this->grid->tiles);
         }
+
+        return $this;
     }
 }
