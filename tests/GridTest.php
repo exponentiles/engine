@@ -69,4 +69,44 @@ class GridTest extends TestCase
             $grid->getAvailableCell()
         );
     }
+
+    public function test_it_can_serialize_to_array()
+    {
+        $grid = new Grid(size: 3);
+
+        $grid->tiles = [
+            [new Tile(0, 0, 1), new Tile(0, 1, 2), new Tile(0, 2, 3)],
+            [new Tile(1, 0, 4), new Tile(1, 1, 5), new Tile(1, 2, 6)],
+            [new Tile(2, 0, 7), new Tile(2, 1, 8), new Tile(2, 2, 9)],
+        ];
+
+        $this->assertSame(
+            [
+                1, 4, 7,
+                2, 5, 8,
+                3, 6, 9,
+            ],
+            $grid->toArray()
+        );
+    }
+
+    public function test_it_can_deserialize_from_array()
+    {
+        $grid = new Grid(size: 3);
+
+        $grid->fromArray([
+            1, 4, 7,
+            2, 5, 8,
+            3, 6, 9,
+        ]);
+
+        $this->assertEquals(
+            [
+                [new Tile(0, 0, 1), new Tile(0, 1, 2), new Tile(0, 2, 3)],
+                [new Tile(1, 0, 4), new Tile(1, 1, 5), new Tile(1, 2, 6)],
+                [new Tile(2, 0, 7), new Tile(2, 1, 8), new Tile(2, 2, 9)],
+            ],
+            $grid->tiles
+        );
+    }
 }
