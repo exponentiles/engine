@@ -41,7 +41,7 @@ class Grid
 
     public function isAvailableCell(Tile $tile): bool
     {
-        return $this->tiles[$tile->y][$tile->x]->isEmpty();
+        return $this->tiles[$tile->x][$tile->y]->isEmpty();
     }
 
     private function initialize(): void
