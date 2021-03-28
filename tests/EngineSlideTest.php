@@ -5,7 +5,6 @@ namespace Exponentiles\Engine\Tests;
 use Exponentiles\Engine\Engine;
 use Exponentiles\Engine\Grid;
 use Exponentiles\Engine\Tile;
-use Illuminate\Support\Arr;
 use PHPUnit\Framework\TestCase;
 
 class EngineSlideTest extends TestCase
