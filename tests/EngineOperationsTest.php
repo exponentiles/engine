@@ -3,7 +3,6 @@
 namespace Exponentiles\Engine\Tests;
 
 use Exponentiles\Engine\Engine;
-use Exponentiles\Engine\Tile;
 use PHPUnit\Framework\TestCase;
 
 class EngineOperationsTest extends TestCase
@@ -33,7 +32,6 @@ class EngineOperationsTest extends TestCase
             $engine->grid->toArray()
         );
     }
-
 
     public function test_it_can_steer_north()
     {
