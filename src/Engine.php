@@ -15,7 +15,6 @@ class Engine
         $this->grid = new Grid($this->size);
     }
 
-
     public function start(): void
     {
         $startTiles = 2;
