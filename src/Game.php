@@ -23,7 +23,7 @@ class Game
         return $this;
     }
 
-    public function move(string $direction)
+    public function move(string $direction): void
     {
     }
 }

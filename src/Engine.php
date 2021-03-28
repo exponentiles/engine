@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 
 class Engine
 {
-    public function start(Grid $grid)
+    public function start(Grid $grid): void
     {
         $startTiles = 2;
 
@@ -28,7 +28,7 @@ class Engine
         return $this;
     }
 
-    public function steer(Grid $grid, string $direction)
+    public function steer(Grid $grid, string $direction): void
     {
         if ($direction === 'EAST' || $direction === 'WEST') {
             $grid->tiles = Operator::rotate($grid->tiles);

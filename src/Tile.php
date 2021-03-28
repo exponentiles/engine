@@ -17,7 +17,7 @@ class Tile
         return $this->value === 0;
     }
 
-    public function isNotEmpty()
+    public function isNotEmpty(): bool
     {
         return ! $this->isEmpty();
     }
