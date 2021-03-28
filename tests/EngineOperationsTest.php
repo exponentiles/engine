@@ -8,7 +8,7 @@ use Exponentiles\Engine\Tile;
 use Illuminate\Support\Arr;
 use PHPUnit\Framework\TestCase;
 
-class EngineSlideTest extends TestCase
+class EngineOperationsTest extends TestCase
 {
     public function test_it_slides_down()
     {
