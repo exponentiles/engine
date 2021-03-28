@@ -25,11 +25,11 @@ class Engine
         $startTiles = 2;
 
         for ($i = 0; $i < $startTiles; $i++) {
-            $this->addTileTo();
+            $this->addTile();
         }
     }
 
-    public function addTileTo(): void
+    public function addTile(): void
     {
         $cell = $this->grid->getAvailableCell();
         $value = (random_int(0, 100) < 90) ? 2 : 4;

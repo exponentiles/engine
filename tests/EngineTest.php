@@ -31,7 +31,7 @@ class EngineTest extends TestCase
     {
         $engine = new Engine();
 
-        $engine->addTileTo();
+        $engine->addTile();
 
         $this->assertCount(
             ($engine->grid->size * $engine->grid->size) - 1,
