@@ -40,16 +40,7 @@ class Engine
 
     public function steer(string $direction): self
     {
-        $shouldRotate = in_array($direction, [
-            self::DIRECTION_EAST,
-            self::DIRECTION_WEST,
-        ]);
-        $shouldFlip = in_array($direction, [
-            self::DIRECTION_NORTH,
-            self::DIRECTION_WEST,
-        ]);
-
-        if ($shouldRotate) {
+        if ($this->requiresRotation($direction)) {
             $this->grid->tiles = Operator::rotate($this->grid->tiles);
         }
 
@@ -58,14 +49,14 @@ class Engine
             // an ordered integer array.
             $values = Arr::pluck($column, 'value');
 
-            if ($shouldFlip) {
+            if ($this->requiresFlip($direction)) {
                 $values = array_reverse($values);
             }
 
             // Operate on the plucked values.
             $values = Operator::move($values);
 
-            if ($shouldFlip) {
+            if ($this->requiresFlip($direction)) {
                 $values = array_reverse($values);
             }
 
@@ -75,10 +66,26 @@ class Engine
             }
         }
 
-        if ($shouldRotate) {
+        if ($this->requiresRotation($direction)) {
             $this->grid->tiles = Operator::rotate($this->grid->tiles);
         }
 
         return $this;
+    }
+
+    private function requiresRotation(string $direction): bool
+    {
+        return in_array($direction, [
+            self::DIRECTION_EAST,
+            self::DIRECTION_WEST,
+        ]);
+    }
+
+    private function requiresFlip(string $direction): bool
+    {
+        return in_array($direction, [
+            self::DIRECTION_NORTH,
+            self::DIRECTION_WEST,
+        ]);
     }
 }
