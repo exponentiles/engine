@@ -49,22 +49,44 @@ class Engine
             })->toArray();
     }
 
-            // Filter away empty tiles
-            $values = $values->filter();
+    /**
+     * @param array<int, Tile> $tiles
+     * @return array<int, Tile>
+     */
+    public function combineColumn(array $tiles): array
+    {
+        $values = Arr::pluck($tiles, 'value');
 
-            // Pad with missing zeros
-            $values = $values->pad(-$grid->size, 0);
+        // Loop backwards through tile values.
+        for ($i = count($values) - 1; $i >= 1; $i--) {
+            $current = $values[$i];
+            $previous = $values[$i - 1] ?? null;
 
-            ray($values)->blue();
+            if ($current !== $previous) {
+                continue;
+            }
 
-            // Update column values
-            $values->each(function ($value, $key) use ($column) {
-                $column[$key]->value = $value;
-            });
+            // Combine onto current value.
+            $values[$i] = $current + $previous;
 
-            $grid->tiles[$index] = $column;
-            ray($values->toArray())->green();
-            ray($column)->purple();
+            // Empty previous value.
+            $values[$i - 1] = 0;
+        }
+
+        return collect($values)
+            ->map(function ($value, $index) use ($tiles) {
+                $tiles[$index]->value = $value;
+
+                return $tiles[$index];
+            })->toArray();
+    }
+
+    public function slide(Grid $grid, string $direction)
+    {
+        foreach ($grid->tiles as $index => $column) {
+            $grid->tiles[$index] = $this->slideColumn($column);
+            $grid->tiles[$index] = $this->combineColumn($column);
+            $grid->tiles[$index] = $this->slideColumn($column);
         }
     }
 }
