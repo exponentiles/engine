@@ -3,7 +3,6 @@
 namespace Exponentiles\Engine\Tests;
 
 use Exponentiles\Engine\Engine;
-use Exponentiles\Engine\Grid;
 use Exponentiles\Engine\Tile;
 use PHPUnit\Framework\TestCase;
 
@@ -11,7 +10,6 @@ class EngineOperationsTest extends TestCase
 {
     public function test_it_can_steer_south()
     {
-        $grid = new Grid(size: 4);
         $engine = new Engine();
 
         /*
@@ -25,14 +23,14 @@ class EngineOperationsTest extends TestCase
          * | 0 | 2 | 2 | 4 |
          * +---+---+---+---+
          */
-        $grid->tiles = [
+        $engine->grid->tiles = [
             [new Tile(0, 0, 2), new Tile(0, 1, 2), new Tile(0, 2, 4), new Tile(0, 3, 0)],
             [new Tile(1, 0, 2), new Tile(1, 1, 2), new Tile(1, 2, 2), new Tile(1, 3, 2)],
             [new Tile(2, 0, 2), new Tile(2, 1, 4), new Tile(2, 2, 2), new Tile(2, 3, 2)],
             [new Tile(3, 0, 2), new Tile(3, 1, 2), new Tile(3, 2, 4), new Tile(3, 3, 4)],
         ];
 
-        $engine->steer($grid, 'SOUTH');
+        $engine->steer('SOUTH');
 
         /*
          * +---+---+---+---+
@@ -52,13 +50,12 @@ class EngineOperationsTest extends TestCase
                 [new Tile(2, 0, 0), new Tile(2, 1, 2), new Tile(2, 2, 4), new Tile(2, 3, 4)],
                 [new Tile(3, 0, 0), new Tile(3, 1, 0), new Tile(3, 2, 4), new Tile(3, 3, 8)],
             ],
-            $grid->tiles
+            $engine->grid->tiles
         );
     }
 
     public function test_it_can_steer_north()
     {
-        $grid = new Grid(size: 4);
         $engine = new Engine();
 
         /*
@@ -72,14 +69,14 @@ class EngineOperationsTest extends TestCase
          * | 0 | 2 | 2 | 4 |
          * +---+---+---+---+
          */
-        $grid->tiles = [
+        $engine->grid->tiles = [
             [new Tile(0, 0, 2), new Tile(0, 1, 2), new Tile(0, 2, 4), new Tile(0, 3, 0)],
             [new Tile(1, 0, 2), new Tile(1, 1, 2), new Tile(1, 2, 2), new Tile(1, 3, 2)],
             [new Tile(2, 0, 2), new Tile(2, 1, 4), new Tile(2, 2, 2), new Tile(2, 3, 2)],
             [new Tile(3, 0, 2), new Tile(3, 1, 2), new Tile(3, 2, 4), new Tile(3, 3, 4)],
         ];
 
-        $engine->steer($grid, 'NORTH');
+        $engine->steer('NORTH');
 
         /*
          * +---+---+---+---+
@@ -99,13 +96,12 @@ class EngineOperationsTest extends TestCase
                 [new Tile(2, 0, 2), new Tile(2, 1, 4), new Tile(2, 2, 4), new Tile(2, 3, 0)],
                 [new Tile(3, 0, 4), new Tile(3, 1, 8), new Tile(3, 2, 0), new Tile(3, 3, 0)],
             ],
-            $grid->tiles
+            $engine->grid->tiles
         );
     }
 
     public function test_it_can_steer_east()
     {
-        $grid = new Grid(size: 4);
         $engine = new Engine();
 
         /*
@@ -119,14 +115,14 @@ class EngineOperationsTest extends TestCase
          * | 0 | 2 | 2 | 4 |
          * +---+---+---+---+
          */
-        $grid->tiles = [
+        $engine->grid->tiles = [
             [new Tile(0, 0, 2), new Tile(0, 1, 2), new Tile(0, 2, 4), new Tile(0, 3, 0)],
             [new Tile(1, 0, 2), new Tile(1, 1, 2), new Tile(1, 2, 2), new Tile(1, 3, 2)],
             [new Tile(2, 0, 2), new Tile(2, 1, 4), new Tile(2, 2, 2), new Tile(2, 3, 2)],
             [new Tile(3, 0, 2), new Tile(3, 1, 2), new Tile(3, 2, 4), new Tile(3, 3, 4)],
         ];
 
-        $engine->steer($grid, 'EAST');
+        $engine->steer('EAST');
 
         /*
          * +---+---+---+---+
@@ -146,13 +142,12 @@ class EngineOperationsTest extends TestCase
                 [new Tile(2, 0, 4), new Tile(2, 1, 4), new Tile(2, 2, 4), new Tile(2, 3, 4)],
                 [new Tile(3, 0, 4), new Tile(3, 1, 2), new Tile(3, 2, 4), new Tile(3, 3, 4)],
             ],
-            $grid->tiles
+            $engine->grid->tiles
         );
     }
 
     public function test_it_can_steer_west()
     {
-        $grid = new Grid(size: 4);
         $engine = new Engine();
 
         /*
@@ -166,14 +161,14 @@ class EngineOperationsTest extends TestCase
          * | 0 | 2 | 2 | 4 |
          * +---+---+---+---+
          */
-        $grid->tiles = [
+        $engine->grid->tiles = [
             [new Tile(0, 0, 2), new Tile(0, 1, 2), new Tile(0, 2, 4), new Tile(0, 3, 0)],
             [new Tile(1, 0, 2), new Tile(1, 1, 2), new Tile(1, 2, 2), new Tile(1, 3, 2)],
             [new Tile(2, 0, 2), new Tile(2, 1, 4), new Tile(2, 2, 2), new Tile(2, 3, 2)],
             [new Tile(3, 0, 2), new Tile(3, 1, 2), new Tile(3, 2, 4), new Tile(3, 3, 4)],
         ];
 
-        $engine->steer($grid, 'WEST');
+        $engine->steer('WEST');
 
         /*
          * +---+---+---+---+
@@ -193,7 +188,7 @@ class EngineOperationsTest extends TestCase
                 [new Tile(2, 0, 0), new Tile(2, 1, 2), new Tile(2, 2, 4), new Tile(2, 3, 0)],
                 [new Tile(3, 0, 0), new Tile(3, 1, 0), new Tile(3, 2, 0), new Tile(3, 3, 0)],
             ],
-            $grid->tiles
+            $engine->grid->tiles
         );
     }
 }

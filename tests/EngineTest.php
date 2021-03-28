@@ -4,46 +4,50 @@ namespace Exponentiles\Engine\Tests;
 
 use Exponentiles\Engine\Engine;
 use Exponentiles\Engine\Grid;
-use Illuminate\Support\Arr;
 use PHPUnit\Framework\TestCase;
 
 class EngineTest extends TestCase
 {
-    public function test_it_can_add_random_tile_to_given_grid()
+    public function test_it_has_a_grid()
     {
-        $grid = new Grid(size: 2);
-
         $engine = new Engine();
-        $engine->addTileTo($grid);
 
-        $this->assertCount(
-            ($grid->size * $grid->size) - 1,
-            $grid->getAvailableCells()
+        $this->assertInstanceOf(
+            Grid::class,
+            $engine->grid,
         );
     }
 
-    public function test_it_initializes_grid_on_start()
+    public function test_it_can_customize_grid_size()
     {
-        $grid = new Grid(size: 2);
+        $engine = new Engine(
+            size: 2
+        );
 
-        (new Engine())->start($grid);
+        $this->assertSame(2, $engine->grid->size);
+    }
+
+    public function test_it_can_add_random_tile()
+    {
+        $engine = new Engine();
+
+        $engine->addTileTo();
 
         $this->assertCount(
-            ($grid->size * $grid->size),
-            Arr::collapse($grid->tiles),
+            ($engine->grid->size * $engine->grid->size) - 1,
+            $engine->grid->getAvailableCells()
         );
     }
 
     public function test_it_adds_two_tiles_on_start()
     {
-        $grid = new Grid(size: 2);
-
         $engine = new Engine();
-        $engine->start($grid);
+
+        $engine->start();
 
         $this->assertCount(
-            ($grid->size * $grid->size) - 2,
-            $grid->getAvailableCells()
+            ($engine->grid->size * $engine->grid->size) - 2,
+            $engine->grid->getAvailableCells()
         );
     }
 }

@@ -7,34 +7,42 @@ use Illuminate\Support\Arr;
 
 class Engine
 {
-    public function start(Grid $grid): void
+    public Grid $grid;
+
+    public function __construct(
+        public int $size = 4
+    ) {
+        $this->grid = new Grid($this->size);
+    }
+
+
+    public function start(): void
     {
         $startTiles = 2;
 
         for ($i = 0; $i < $startTiles; $i++) {
-            $this->addTileTo($grid);
+            $this->addTileTo();
         }
     }
 
-    public function addTileTo(Grid $grid): self
+    public function addTileTo(): self
     {
-        $cell = $grid->getAvailableCell();
+        $cell = $this->grid->getAvailableCell();
         $value = (random_int(0, 100) < 90) ? 2 : 4;
 
-
         // Can I just operate directly on the cell???
-        $grid->getTile($cell->x, $cell->y)->value = $value;
+        $this->grid->getTile($cell->x, $cell->y)->value = $value;
 
         return $this;
     }
 
-    public function steer(Grid $grid, string $direction): void
+    public function steer(string $direction): void
     {
         if ($direction === 'EAST' || $direction === 'WEST') {
-            $grid->tiles = Operator::rotate($grid->tiles);
+            $this->grid->tiles = Operator::rotate($this->grid->tiles);
         }
 
-        foreach ($grid->tiles as $column) {
+        foreach ($this->grid->tiles as $column) {
             // Pluck tile values to form,
             // an ordered integer array.
             $values = Arr::pluck($column, 'value');
@@ -57,7 +65,7 @@ class Engine
         }
 
         if ($direction === 'EAST' || $direction === 'WEST') {
-            $grid->tiles = Operator::rotate($grid->tiles);
+            $this->grid->tiles = Operator::rotate($this->grid->tiles);
         }
     }
 }
