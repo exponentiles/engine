@@ -30,6 +30,10 @@ class Engine
 
     public function steer(Grid $grid, string $direction)
     {
+        if ($direction === 'EAST') {
+            $grid->tiles = Operator::rotate($grid->tiles);
+        }
+
         foreach ($grid->tiles as $column) {
             // Pluck tile values to form,
             // an ordered integer array.
@@ -50,6 +54,10 @@ class Engine
             foreach ($column as $index => $tile) {
                 $tile->value = $values[$index];
             }
+        }
+
+        if ($direction === 'EAST') {
+            $grid->tiles = Operator::rotate($grid->tiles);
         }
     }
 }
