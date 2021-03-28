@@ -16,4 +16,9 @@ class Tile
     {
         return $this->value === 0;
     }
+
+    public function isNotEmpty()
+    {
+        return ! $this->isEmpty();
+    }
 }

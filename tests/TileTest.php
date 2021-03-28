@@ -31,6 +31,21 @@ class TileTest extends TestCase
         );
     }
 
+    public function test_it_can_be_not_empty()
+    {
+        $tile = new Tile(1, 2, 2);
+
+        $this->assertTrue(
+            $tile->isNotEmpty()
+        );
+
+        $tile->value = 0;
+
+        $this->assertFalse(
+            $tile->isNotEmpty()
+        );
+    }
+
     public function test_it_is_empty_by_default()
     {
         $tile = new Tile(0, 0);
