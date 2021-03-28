@@ -26,11 +26,24 @@ composer require exponentiles/engine
 ## Usage
 
 ```php
-$game = new Exponentiles\Game();
+use Exponentiles\Engine\Engine;
 
-$game->start();
+$engine = new Engine();
 
+// Start a new game.
+$engine->start();
 
+// Steer/move/slide in direction.
+// - Engine::DIRECTION_NORTH
+// - Engine::DIRECTION_SOUTH
+// - Engine::DIRECTION_EAST
+// - Engine::DIRECTION_WEST
+$engine->steer(Engine::DIRECTION_SOUTH);
+
+// Add a new random tile.
+// - Has 90% chance of a 2
+// - Has 10% chance of a 4
+$engine->addTile();
 ```
 
 ## Testing
