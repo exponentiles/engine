@@ -3,6 +3,7 @@
 namespace Exponentiles\Engine\Tests;
 
 use Exponentiles\Engine\Tile;
+use Illuminate\Support\Str;
 use PHPUnit\Framework\TestCase;
 
 class TileTest extends TestCase
@@ -14,6 +15,20 @@ class TileTest extends TestCase
         $this->assertSame(0, $tile->x);
         $this->assertSame(0, $tile->y);
         $this->assertSame(512, $tile->value);
+    }
+
+    public function test_it_has_a_unique_id()
+    {
+        $expectedId = 'unique-uuid';
+
+        Str::createUuidsUsing(
+            fn () => $expectedId
+        );
+
+        $this->assertSame(
+            $expectedId,
+            (new Tile(0, 0))->id
+        );
     }
 
     public function test_it_can_be_empty()
@@ -52,6 +67,25 @@ class TileTest extends TestCase
 
         $this->assertTrue(
             $tile->isEmpty()
+        );
+    }
+
+    public function test_it_can_serialize_to_array()
+    {
+        Str::createUuidsUsing(
+            fn () => 'tile-id'
+        );
+
+        $tile = new Tile(1, 2, 512);
+
+        $this->assertSame(
+            [
+                'id' => 'tile-id',
+                'x' => 1,
+                'y' => 2,
+                'value' => 512,
+            ],
+            $tile->serialize()
         );
     }
 }
