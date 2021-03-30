@@ -88,4 +88,29 @@ class Engine
             self::DIRECTION_WEST,
         ]);
     }
+
+    public function export(): array
+    {
+        $result = Operator::rotate($this->grid->tiles);
+
+        $result = Arr::collapse($result);
+
+        return array_map(function (Tile $tile) {
+            return $tile->serialize();
+        }, $result);
+    }
+
+    public function import(array $grid): void
+    {
+        $rotatedTiles = Operator::rotate($this->grid->tiles);
+
+        $rotatedTiles = Arr::collapse($rotatedTiles);
+
+        foreach ($rotatedTiles as $index => $tile) {
+            $tile->id = $grid[$index]['id'];
+            $tile->x = $grid[$index]['x'];
+            $tile->y = $grid[$index]['y'];
+            $tile->value = $grid[$index]['value'];
+        }
+    }
 }

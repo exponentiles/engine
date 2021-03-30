@@ -44,26 +44,6 @@ class Grid
         return $this->tiles[$tile->x][$tile->y]->isEmpty();
     }
 
-    public function fromArray(array $values)
-    {
-        $rotatedTiles = Operator::rotate($this->tiles);
-
-        $rotatedTiles = Arr::collapse($rotatedTiles);
-
-        foreach ($rotatedTiles as $index => $tile) {
-            $tile->value = $values[$index];
-        }
-    }
-
-    public function toArray(): array
-    {
-        $result = Operator::rotate($this->tiles);
-
-        $result = Arr::pluck($result, '*.value');
-
-        return Arr::collapse($result);
-    }
-
     private function initialize(): void
     {
         for ($x = 0; $x < $this->size; $x++) {
