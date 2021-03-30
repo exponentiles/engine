@@ -51,6 +51,9 @@ class Operator
      */
     public static function move(array $values): array
     {
+        // Shift all values to the side.
+        $values = static::slide($values);
+
         // Combine any value pairs.
         $values = static::combine($values);
 
